@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аншлаг маршрута 842 — АТП Ивангород</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .poster {
+            width: 900px;
+            min-height: 1300px;
+            background: linear-gradient(180deg, #b3e0ff 0%, #cce9ff 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 100px rgba(233,69,96,0.1);
+            position: relative;
+            border: 2px solid rgba(233,69,96,0.3);
+        }
+
+        .poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(233,69,96,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0,212,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255,107,53,0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* === HEADER === */
+        .header {
+            background: linear-gradient(135deg, #b3e0ff 0%, #cce9ff 100%);
+            padding: 30px 35px;
+            position: relative;
+            z-index: 1;
+            border-bottom: 2px solid rgba(233,69,96,0.4);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+
+        .banner-container {
+            background: linear-gradient(135deg, #0d2b5c 0%, #1e3a8a 100%);
+            padding: 10px 20px;
+            border-radius: 16px;
+            border: 3px solid #0d2b5c;
+            box-shadow: 
+                0 15px 40px rgba(13,43,92,0.5),
+                0 5px 20px rgba(13,43,92,0.4),
+                0 0 60px rgba(13,43,92,0.3);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .banner-container img {
+            max-height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1565c0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /*  МАРШРУТ 842 - КРАСНЫЙ ГРАДИЕНТ */
+        .route-badge {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 50%, #f39c12 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 3px solid #e94560;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(233,69,96,0.5), 0 0 40px rgba(233,69,96,0.3);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            transform: rotate(-5deg);
+        }
+
+        .route-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .route-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            color: #0d2b5c;
+        }
+
+        .route-number {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            color: #0d2b5c;
+        }
+
+        /* 🔴 НАПРАВЛЕНИЕ МАРШРУТА - КРАСНЫЙ ГРАДИЕНТ */
+        .route-direction {
+            background: linear-gradient(135deg, #0d2b5c 0%, #1e3a8a 100%);
+            padding: 20px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(13,43,92,0.4);
+        }
+
+        .city-name {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .direction-arrows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .direction-arrows svg {
+            width: 80px;
+            height: 14px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .direction-arrows svg line {
+            stroke: #ffffff !important;
+        }
+
+        .direction-arrows svg polygon {
+            fill: #ffffff !important;
+        }
+
+        /* === BUS IMAGE SECTION === */
+        .bus-section {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(180deg, #b3e0ff 0%, #87ceeb 50%, #4da6ff 100%);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .bus-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(233,69,96,0.5);
+        }
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
+        }
+
+        .road::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                #f39c12 0px,
+                #f39c12 50px,
+                transparent 50px,
+                transparent 80px
+            );
+            box-shadow: 0 0 10px rgba(243,156,18,0.5);
+        }
+
+        .road::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: #0f0f1a;
+        }
+
+        .bus-image-container {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        .bus-image-container img {
+            height: 295px;
+            width: 1000px;
+            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.5)) brightness(1.05);
+        }
+
+        .skyline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 140px;
+            opacity: 0.08;
+        }
+
+        /* === SCHEDULE SECTION === */
+        .schedule-section {
+            padding: 35px 35px 25px 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0d2b5c;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: inline-block;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(233,69,96,0.5);
+        }
+
+        .section-title h2::before,
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 60px;
+            height: 3px;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(233,69,96,0.5);
+        }
+
+        .section-title h2::before {
+            right: calc(100% + 20px);
+            background: #ffffff;
+        }
+
+        .section-title h2::after {
+            left: calc(100% + 20px);
+            background: #ffffff;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            border: 2px solid rgba(233,69,96,0.3);
+            table-layout: fixed;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            width: 50%;
+        }
+
+        .schedule-table thead th {
+            background: #1e3a8a !important;
+            color: #ffffff;
+            padding: 18px 20px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .schedule-table thead th:first-child {
+            border-right: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .schedule-table thead th:first-child {
+            border-right: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .city-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-direction: column;
+        }
+
+        .city-header-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coat-of-arms {
+            width: 35px;
+            height: auto;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+        .schedule-table tbody td {
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0d2b5c;
+            border-bottom: 1px solid rgba(13,43,92,0.15);
+            background: #ffffff;
+            transition: all 0.3s;
+        }
+
+        .schedule-table tbody td:first-child {
+            border-right: 1px solid rgba(13,43,92,0.15);
+        }
+
+        .schedule-table tbody tr:nth-child(even) td {
+            background: #e6f4ff;
+        }
+
+        .schedule-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .no-departure {
+            color: rgba(13, 43, 92, 0.45);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* === FOOTER SECTION === */
+        .footer-section {
+            padding: 25px 35px 35px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qr-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .qr-container {
+            width: 150px;
+            height: 150px;
+            background: #ffffff;
+            border: 3px solid #0d2b5c;
+            border-radius: 18px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(13,43,92,0.4), 0 0 30px rgba(13,43,92,0.2);
+            overflow: hidden;
+        }
+
+        .qr-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d2b5c;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            max-width: 160px;
+            line-height: 1.4;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .qr-divider {
+            font-size: 10px;
+            font-weight: 600;
+            color: #0d2b5c;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .qr-link {
+            display: block;
+            width: auto;
+            max-width: none;
+            white-space: nowrap;
+            padding: 8px 24px;
+            background: linear-gradient(135deg, #0d2b5c 0%, #1e3a8a 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(13,43,92,0.4);
+            transition: all 0.3s;
+            text-transform: lowercase;
+            text-align: center;
+        }
+
+        .qr-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13,43,92,0.6);
+        }
+
+        .contact-block {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* 🔴 ДИСПЕТЧЕРСКАЯ - КРАСНЫЙ ГРАДИЕНТ */
+        .phone-card {
+            background: linear-gradient(135deg, #0d2b5c 0%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 22px 40px;
+            border-radius: 18px;
+            border: 3px solid #0d2b5c;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(13,43,92,0.5), 0 0 40px rgba(13,43,92,0.3);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        .phone-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .phone-label {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .phone-number {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+
+        .phone-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .phone-icon path {
+            stroke: #ffffff !important;
+        }
+
+        .info-badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .info-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(233,69,96,0.2);
+            border: 2px solid rgba(233,69,96,0.4);
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0d2b5c;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .info-badge:hover {
+            background: rgba(233,69,96,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233,69,96,0.3);
+        }
+
+        .info-badge svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .bottom-stripe {
+            display: block;
+            width: 100%;
+            height: 10px;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(
+                90deg,
+                #e94560,
+                #f39c12,
+                #00d4ff,
+                #f39c12,
+                #e94560
+            );
+            box-shadow: 0 0 20px rgba(233,69,96,0.5);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .poster {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="poster">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <div class="banner-container">
+                <img src="banner.png" alt="">
+            </div>
+            <div class="route-badge">
+                <div class="route-label">Маршрут</div>
+                <div class="route-number">842</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROUTE DIRECTION -->
+    <div class="route-direction">
+        <div class="city-name">Кингисепп</div>
+        <div class="direction-arrows">
+            <svg viewBox="0 0 80 14" fill="none">
+                <line x1="10" y1="7" x2="70" y2="7" stroke="white" stroke-width="2.5" stroke-dasharray="4 4"/>
+                <polygon points="65,2 78,7 65,12" fill="white"/>
+            </svg>
+            <svg viewBox="0 0 80 14" fill="none">
+                <line x1="10" y1="7" x2="70" y2="7" stroke="white" stroke-width="2.5" stroke-dasharray="4 4"/>
+                <polygon points="15,2 2,7 15,12" fill="white"/>
+            </svg>
+        </div>
+        <div class="city-name">Санкт-Петербург</div>
+    </div>
+
+    <!-- BUS IMAGE SECTION -->
+    <div class="bus-section">
+        <svg class="skyline" viewBox="0 0 900 140" preserveAspectRatio="none">
+            <rect x="30" y="40" width="40" height="100" fill="#e94560"/>
+            <rect x="80" y="20" width="30" height="120" fill="#00d4ff"/>
+            <rect x="120" y="55" width="50" height="85" fill="#f39c12"/>
+            <rect x="200" y="10" width="25" height="130" fill="#e94560"/>
+            <rect x="235" y="45" width="45" height="95" fill="#00d4ff"/>
+            <rect x="310" y="30" width="35" height="110" fill="#f39c12"/>
+            <rect x="370" y="50" width="55" height="90" fill="#e94560"/>
+            <rect x="450" y="15" width="20" height="125" fill="#00d4ff"/>
+            <rect x="480" y="40" width="40" height="100" fill="#f39c12"/>
+            <rect x="550" y="25" width="30" height="115" fill="#e94560"/>
+            <rect x="600" y="50" width="50" height="90" fill="#00d4ff"/>
+            <rect x="680" y="35" width="35" height="105" fill="#f39c12"/>
+            <rect x="740" y="20" width="25" height="120" fill="#e94560"/>
+            <rect x="790" y="45" width="45" height="95" fill="#00d4ff"/>
+            <rect x="850" y="55" width="50" height="85" fill="#f39c12"/>
+        </svg>
+
+        <div class="bus-image-container">
+            <img src="bus-yutong.png" alt="Автобус">
+        </div>
+
+        <div class="road"></div>
+    </div>
+
+    <!-- SCHEDULE SECTION -->
+    <div class="schedule-section">
+        <div class="section-title">
+            <h2>🕐 Расписание движения</h2>
+        </div>
+
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="city-header">
+                            <div class="city-header-row">
+                                <img src="coat-kingisepp.png" alt="Герб Кингисеппа" class="coat-of-arms">
+                                <span>из г. Кингисепп</span>
+                            </div>
+                            <span style="font-weight:500; font-size:11px; opacity:0.9;">
+                                пр. Карла Маркса, 42
+                            </span>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="city-header">
+                            <div class="city-header-row">
+                                <img src="coat-spb.png" alt="Герб Санкт-Петербурга" class="coat-of-arms">
+                                <span>из г. Санкт-Петербург</span>
+                            </div>
+                            <span style="font-weight:500; font-size:11px; opacity:0.9;">
+                                ул. Червонного Казачества
+                            </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr><td>05:00</td><td>07:00</td></tr>
+                <tr><td>06:00</td><td>08:00</td></tr>
+                <tr><td>07:00</td><td>09:00</td></tr>
+                <tr><td>08:00</td><td>10:00</td></tr>
+                <tr><td>09:00</td><td>11:00</td></tr>
+                <tr><td>10:00</td><td>12:00</td></tr>
+                <tr><td>11:00</td><td>13:00</td></tr>
+                <tr><td>12:00</td><td>14:00</td></tr>
+                <tr><td>13:00</td><td>15:00</td></tr>
+                <tr><td>14:00</td><td>16:00</td></tr>
+                <tr><td>15:00</td><td>17:00</td></tr>
+                <tr><td>16:00</td><td>18:00</td></tr>
+                <tr><td>17:00</td><td>19:00</td></tr>
+                <tr><td>18:00</td><td>20:00</td></tr>
+                <tr><td>19:00</td><td>21:00</td></tr>
+                <tr><td class="no-departure">—</td><td>22:00</td></tr>
+            </tbody>
+        </table>
+    
+    <!-- FOOTER -->
+    <div class="footer-section">
+        <div class="qr-block">
+            <div class="qr-container">
+                <img src="qr.PNG" alt="QR код">
+            </div>
+            <div class="qr-label">Сканируйте для бронирования билетов<br>или на сайте:</div>
+            <a href="https://ivangorodline.ru/" target="_blank" class="qr-link">ivangorodline.ru</a>
+        </div>
+
+        <div class="contact-block">
+            <div class="phone-card">
+                <div class="phone-content">
+                    <svg class="phone-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="phone-label">Диспетчерская служба:</div>
+                    <div class="phone-number">+7 931 953 01 02</div>
+                </div>
+            </div>
+
+            <div class="info-badges">
+                <div class="info-badge">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#0d2b5c"/>
+                    </svg>
+                    Комфортабельные автобусы
+                </div>
+                <div class="info-badge">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z" fill="#0d2b5c"/>
+                    </svg>
+                    Рейсы каждый час
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
